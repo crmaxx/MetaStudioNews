@@ -1,0 +1,18 @@
+<% unless @news.empty? %>
+  <%= paginate @news, :window => 2 %>
+
+  <% @news.each do |news| %>
+    <div class="span9">
+      <blockquote>
+        <p><%= news.title %></p>
+        <small><%= "#{news.created_at.strftime('%B %e, %Y')} by #{get_user_email_by_id(news.user_id)}" %></small>
+      </blockquote>
+      <p><%= truncate(news.body, :length => 250, :separator => ' ') %></p>
+      <p><%= link_to 'View details »', news_path(news) %></p>
+    </div>
+  <% end %>
+
+  <%= paginate @news, :window => 2 %>
+<% else %>
+  <h3>No news</h3>
+<% end %>

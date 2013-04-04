@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>MetastudioNews</title>
+    <%= stylesheet_link_tag    'application', :media => 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tags %>
+    <%= render 'layouts/shim' %>
+  </head>
+  <body>
+    <div class="container-narrow">
+      <div class="masthead">
+        <%= render 'layouts/header' %>
+        <h3 class="muted"><%= link_to 'MetastudioNews', root_path %></h3>
+        <h5 class="muted">Тестовое задание на вакансию Ruby on Rails разработчик в компанию MetaStudio</h5>
+      </div>
+      <hr/>
+      <!--Body content-->
+      <div class="row">
+        <%= render 'layouts/notice' %>
+        <%= yield %>
+      </div>
+      <!--Footer content-->
+      <%= render 'layouts/footer' %>
+    </div>
+    <%#= debug(params) if Rails.env.development? %>
+  </body>
+</html>

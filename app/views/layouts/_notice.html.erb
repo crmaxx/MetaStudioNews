@@ -1,0 +1,8 @@
+<% flash.each do |key, value| %>
+  <%= content_tag :div, class: "alert alert-#{key} fade in" do %>
+    <%= content_tag :button, :class => 'close', :'data-dismiss' => 'alert' do %>
+       &#215;
+    <% end %>
+    <%= value %>
+  <% end %>
+<% end %>

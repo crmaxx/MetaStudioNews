@@ -1,0 +1,15 @@
+<div class="row">
+  <% if user_signed_in? && @news.user_id == current_user.id %>
+    <div class="span10" style="text-align: right;">
+      <div class="btn-group" style="margin: 9px 0;">
+        <%= link_to 'Edit', edit_news_path(@news), :class => 'btn btn-primary' %>
+        <%= link_to 'Destroy', @news, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %>
+      </div>
+    </div>
+  <% end %>
+  <legend><%= @news.title %></legend>
+  <div class="span9">
+    <p><%= @news.body %></p>
+    <p class="text-right"><small><%= "#{@news.created_at.strftime('%B %e, %Y')}, by #{get_user_email_by_id(@news.user_id)}" %></small></p>
+  </div>
+</div>
