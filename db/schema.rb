@@ -11,34 +11,44 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130404181619) do
+ActiveRecord::Schema.define(:version => 20130405085012) do
 
-  create_table "news", :force => true do |t|
-    t.string   "title",      :null => false
-    t.text     "body",       :null => false
-    t.integer  "user_id",    :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+  create_table 'news', :force => true do |t|
+    t.string   'title',       :null => false
+    t.text     'body',        :null => false
+    t.integer  'user_id',     :null => false
+    t.datetime 'created_at',  :null => false
+    t.datetime 'updated_at',  :null => false
+    t.integer  'votes_count'
   end
 
-  add_index "news", ["user_id"], :name => "index_news_on_user_id"
+  add_index 'news', %w(user_id), :name => 'index_news_on_user_id'
 
-  create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+  create_table 'users', :force => true do |t|
+    t.string   'email',                  :default => '', :null => false
+    t.string   'encrypted_password',     :default => '', :null => false
+    t.string   'reset_password_token'
+    t.datetime 'reset_password_sent_at'
+    t.datetime 'remember_created_at'
+    t.integer  'sign_in_count',          :default => 0
+    t.datetime 'current_sign_in_at'
+    t.datetime 'last_sign_in_at'
+    t.string   'current_sign_in_ip'
+    t.string   'last_sign_in_ip'
+    t.datetime 'created_at',                             :null => false
+    t.datetime 'updated_at',                             :null => false
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index 'users', %w(email), :name => 'index_users_on_email', :unique => true
+  add_index 'users', %w(reset_password_token), :name => 'index_users_on_reset_password_token', :unique => true
+
+  create_table 'votes', :force => true do |t|
+    t.integer  'user_id'
+    t.integer  'news_id'
+    t.datetime 'created_at', :null => false
+    t.datetime 'updated_at', :null => false
+  end
+
+  add_index 'votes', %w(user_id news_id), :name => 'uniq_one_vote_only', :unique => true
 
 end

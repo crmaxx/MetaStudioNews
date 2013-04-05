@@ -1,4 +1,5 @@
 MetastudioNews::Application.routes.draw do
+  resources :votes
   resources :news
   devise_for :users
 

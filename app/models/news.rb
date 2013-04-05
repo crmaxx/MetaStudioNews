@@ -13,4 +13,16 @@
 class News < ActiveRecord::Base
   attr_accessible :body, :title, :user_id
   belongs_to :user
+
+  has_many :votes
+
+  validates_presence_of  :body
+  validates :title, presence: true, length: { maximum: 150 }
+
+  def voted_on?(user)
+    0 < Vote.where(
+        :new_id => self.id,
+        :user_id => user.id,
+    ).count
+  end
 end

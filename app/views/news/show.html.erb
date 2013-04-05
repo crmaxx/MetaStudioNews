@@ -12,4 +12,11 @@
     <p><%= @news.body %></p>
     <p class="text-right"><small><%= "#{@news.created_at.strftime('%B %e, %Y')}, by #{get_user_email_by_id(@news.user_id)}" %></small></p>
   </div>
+  <% if user_signed_in? %>
+    <%= form_for(@vote, :remote => true) do |f| %>
+      <%= f.hidden_field 'news_id', :value => @news.id %>
+      <%= f.hidden_field 'user_id', :value => current_user.id %>
+      <%= f.submit %>
+    <% end %>
+  <% end %>
 </div>

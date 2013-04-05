@@ -2,11 +2,13 @@ class NewsController < ApplicationController
   respond_to :html
 
   def index
-    params[:user_id].blank? ? @news = News.order('created_at DESC').page(params[:page]) : @news = News.where(user_id: params[:user_id]).order('created_at DESC').page(params[:page])
+    params[:user_id].blank? ? @news = News.order('created_at, votes_count DESC').page(params[:page]) : @news = News.where(user_id: params[:user_id]).order('created_at,votes_count DESC').page(params[:page])
     respond_with @news
   end
 
   def show
+    @vote = Vote.new(params[:vote])
+
     begin
       @news = News.find(params[:id])
     rescue
